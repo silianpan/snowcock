@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <transition name="slide-fade" mode="out-in">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -18,6 +19,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  height: 100%;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    background: #f0f0f0;
+    overflow: hidden;
 }
 </style>
