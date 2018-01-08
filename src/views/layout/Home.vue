@@ -2,6 +2,10 @@
     <div class="layout">
         <Layout>
             <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
+                <div class="logo">
+                    <i></i>
+                    <div v-if="!isCollapsed">SNOWCOCK</div>
+                </div>
                 <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
                     <MenuItem name="1-1">
                         <Icon type="ios-navigate"></Icon>
@@ -16,7 +20,6 @@
                         <span>Option 3</span>
                     </MenuItem>
                 </Menu>
-                <div slot="trigger"></div>
             </Sider>
             <Layout>
                 <Header class="layout-header-bar"></Header>
