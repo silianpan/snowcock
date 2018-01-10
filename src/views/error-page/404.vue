@@ -1,12 +1,15 @@
 <style lang="less">
-@import "./404.less";
+@import './404.less';
 </style>
 
 <template>
   <div class="error404">
     <div class="error404-body-con">
       <Card>
-        <div class="error404-body-con-title">4<span><Icon type="ios-navigate-outline"></Icon></span>4</div>
+        <div class="error404-body-con-title">4
+          <span>
+            <Icon type="ios-navigate-outline"></Icon>
+          </span>4</div>
         <p class="error404-body-con-message">YOU&nbsp&nbspLOOK&nbsp&nbspLOST</p>
         <div class="error404-btn-con">
           <Button @click="goHome" size="large" style="width: 200px" type="text">返回首页</Button>
@@ -21,10 +24,10 @@
 export default {
   name: 'Error404',
   methods: {
-    backPage () {
+    backPage() {
       this.$router.go(-1)
     },
-    goHome () {
+    goHome() {
       this.$router.push({
         name: 'home_index'
       })

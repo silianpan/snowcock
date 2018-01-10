@@ -1,11 +1,8 @@
 import axios from 'api/tools/http'
-import {
-  API_BASEURL,
-  API_TIMEOUT
-} from '@/config'
+import { API_BASEURL, API_TIMEOUT } from '@/config'
 
 export default {
-  axiosOptions (url, method = 'get', params = {}, tag = true) {
+  axiosOptions(url, method = 'get', params = {}, tag = true) {
     params._ = Math.random()
     const self = this
     self.loadInstance = null
@@ -40,7 +37,7 @@ export default {
     //   if ((typeof data.exception) === 'undefined' || data.exception == null) {
     //     console.log("########transformResponse  right:")
     //   } else {
-    //     console.log("########transformResponse exception :" + data.errorMsg) 
+    //     console.log("########transformResponse exception :" + data.errorMsg)
     //   }
     //   return data
     // }
@@ -65,7 +62,7 @@ export default {
    *@param url 用户输入的url
    *@returns axios
    */
-  query (url, params = {}) {
+  query(url, params = {}) {
     var options = this.axiosOptions(url, 'get', params)
     return axios(options)
   },
@@ -75,7 +72,7 @@ export default {
    *@param url 用户输入的url
    *@returns axios
    */
-  pageQuery (url, params = {}, pageNo = 1, pageSize = 10) {
+  pageQuery(url, params = {}, pageNo = 1, pageSize = 10) {
     // 后台是以 easyui 的page rows 来接收分页信息的
     params.page = pageNo
     params.rows = pageSize
@@ -87,7 +84,7 @@ export default {
    *@param url 用户输入的url
    *@returns axios
    */
-  save (url, params = {}, tag = true) {
+  save(url, params = {}, tag = true) {
     var options = this.axiosOptions(url, 'post', params, tag)
     return axios(options)
   },
@@ -96,7 +93,7 @@ export default {
    *@param url 用户输入的url
    *@returns axios
    */
-  delete (url, params = {}) {
+  delete(url, params = {}) {
     var options = this.axiosOptions(url, 'delete', params)
     return axios(options)
   },
@@ -105,13 +102,13 @@ export default {
    * @param  {Object} [option={}] [description]
    * @return {[type]}             [description]
    */
-  call (option = {}) {
+  call(option = {}) {
     option.baseURL = API_BASEURL
     option.timeout = API_TIMEOUT
     option.withCredentials = true
     option.headers = {
       'X-Requested-With': 'XMLHttpRequest',
-      'credentials': 'include',
+      credentials: 'include',
       'content-type': 'application/json charset=utf-8'
     }
     return axios(option)

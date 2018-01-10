@@ -3,12 +3,12 @@ import semver from 'semver'
 import packjson from '../../package.json'
 
 export default {
-  title (title) {
+  title(title) {
     title = title || 'iView admin'
     window.document.title = title
   },
 
-  inOf (arr, targetArr) {
+  inOf(arr, targetArr) {
     let res = true
     arr.forEach(item => {
       if (targetArr.indexOf(item) < 0) {
@@ -18,7 +18,7 @@ export default {
     return res
   },
 
-  oneOf (ele, targetArr) {
+  oneOf(ele, targetArr) {
     if (targetArr.indexOf(ele) >= 0) {
       return true
     } else {
@@ -26,7 +26,7 @@ export default {
     }
   },
 
-  showThisRoute (itAccess, currentAccess) {
+  showThisRoute(itAccess, currentAccess) {
     if (typeof itAccess === 'object' && Array.isArray(itAccess)) {
       return this.oneOf(currentAccess, itAccess)
     } else {
@@ -34,7 +34,7 @@ export default {
     }
   },
 
-  getRouterObjByName (routers, name) {
+  getRouterObjByName(routers, name) {
     if (!name || !routers || !routers.length) {
       return null
     }
@@ -52,7 +52,7 @@ export default {
     return null
   },
 
-  handleTitle (vm, item) {
+  handleTitle(vm, item) {
     if (typeof item.title === 'object') {
       return vm.$t(item.title.i18n)
     } else {
@@ -60,7 +60,7 @@ export default {
     }
   },
 
-  setCurrentPath (vm, name) {
+  setCurrentPath(vm, name) {
     let title = ''
     let isOtherRouter = false
     vm.$store.state.app.routers.forEach(item => {
@@ -84,22 +84,34 @@ export default {
     })
     let currentPathArr = []
     if (name === 'home_index') {
-      currentPathArr = [{
-        title: this.handleTitle(vm, this.getRouterObjByName(vm.$store.state.app.routers, 'home_index')),
-        path: '',
-        name: 'home_index'
-      }]
-    } else if ((name.indexOf('_index') >= 0 || isOtherRouter) && name !== 'home_index') {
-      currentPathArr = [{
-        title: this.handleTitle(vm, this.getRouterObjByName(vm.$store.state.app.routers, 'home_index')),
-        path: '/home',
-        name: 'home_index'
-      },
-      {
-        title: title,
-        path: '',
-        name: name
-      }
+      currentPathArr = [
+        {
+          title: this.handleTitle(
+            vm,
+            this.getRouterObjByName(vm.$store.state.app.routers, 'home_index')
+          ),
+          path: '',
+          name: 'home_index'
+        }
+      ]
+    } else if (
+      (name.indexOf('_index') >= 0 || isOtherRouter) &&
+      name !== 'home_index'
+    ) {
+      currentPathArr = [
+        {
+          title: this.handleTitle(
+            vm,
+            this.getRouterObjByName(vm.$store.state.app.routers, 'home_index')
+          ),
+          path: '/home',
+          name: 'home_index'
+        },
+        {
+          title: title,
+          path: '',
+          name: name
+        }
       ]
     } else {
       let currentPathObj = vm.$store.state.app.routers.filter(item => {
@@ -118,43 +130,53 @@ export default {
           return false
         }
       })[0]
-      if (currentPathObj.children.length <= 1 && currentPathObj.name === 'home') {
-        currentPathArr = [{
-          title: '首页',
-          path: '',
-          name: 'home_index'
-        }]
-      } else if (currentPathObj.children.length <= 1 && currentPathObj.name !== 'home') {
-        currentPathArr = [{
-          title: '首页',
-          path: '/home',
-          name: 'home_index'
-        },
-        {
-          title: currentPathObj.title,
-          path: '',
-          name: name
-        }
+      if (
+        currentPathObj.children.length <= 1 &&
+        currentPathObj.name === 'home'
+      ) {
+        currentPathArr = [
+          {
+            title: '首页',
+            path: '',
+            name: 'home_index'
+          }
+        ]
+      } else if (
+        currentPathObj.children.length <= 1 &&
+        currentPathObj.name !== 'home'
+      ) {
+        currentPathArr = [
+          {
+            title: '首页',
+            path: '/home',
+            name: 'home_index'
+          },
+          {
+            title: currentPathObj.title,
+            path: '',
+            name: name
+          }
         ]
       } else {
-        let childObj = currentPathObj.children.filter((child) => {
+        let childObj = currentPathObj.children.filter(child => {
           return child.name === name
         })[0]
-        currentPathArr = [{
-          title: '首页',
-          path: '/home',
-          name: 'home_index'
-        },
-        {
-          title: currentPathObj.title,
-          path: '',
-          name: currentPathObj.name
-        },
-        {
-          title: childObj.title,
-          path: currentPathObj.path + '/' + childObj.path,
-          name: name
-        }
+        currentPathArr = [
+          {
+            title: '首页',
+            path: '/home',
+            name: 'home_index'
+          },
+          {
+            title: currentPathObj.title,
+            path: '',
+            name: currentPathObj.name
+          },
+          {
+            title: childObj.title,
+            path: currentPathObj.path + '/' + childObj.path,
+            name: name
+          }
         ]
       }
     }
@@ -163,13 +185,14 @@ export default {
     return currentPathArr
   },
 
-  openNewPage (vm, name, argu, query) {
+  openNewPage(vm, name, argu, query) {
     let pageOpenedList = vm.$store.state.app.pageOpenedList
     let openedPageLen = pageOpenedList.length
     let i = 0
     let tagHasOpened = false
     while (i < openedPageLen) {
-      if (name === pageOpenedList[i].name) { // 页面已经打开
+      if (name === pageOpenedList[i].name) {
+        // 页面已经打开
         vm.$store.commit('pageOpenedList', {
           index: i,
           argu: argu,
@@ -181,7 +204,7 @@ export default {
       i++
     }
     if (!tagHasOpened) {
-      let tag = vm.$store.state.app.tagsList.filter((item) => {
+      let tag = vm.$store.state.app.tagsList.filter(item => {
         if (item.children) {
           return name === item.children[0].name
         } else {
@@ -203,12 +226,16 @@ export default {
     vm.$store.commit('setCurrentPageName', name)
   },
 
-  toDefaultPage (routers, name, route, next) {
+  toDefaultPage(routers, name, route, next) {
     let len = routers.length
     let i = 0
     let notHandle = true
     while (i < len) {
-      if (routers[i].name === name && routers[i].children && routers[i].redirect === undefined) {
+      if (
+        routers[i].name === name &&
+        routers[i].children &&
+        routers[i].redirect === undefined
+      ) {
         route.replace({
           name: routers[i].children[0].name
         })
@@ -223,26 +250,31 @@ export default {
     }
   },
 
-  fullscreenEvent (vm) {
+  fullscreenEvent(vm) {
     vm.$store.commit('initCachepage')
     // 权限菜单过滤相关
     vm.$store.commit('updateMenulist')
     // 全屏相关
   },
 
-  checkUpdate (vm) {
-    axios.get('https://api.github.com/repos/iview/iview-admin/releases/latest').then(res => {
-      let version = res.data.tag_name
-      vm.$Notice.config({
-        duration: 0
-      })
-      if (semver.lt(packjson.version, version)) {
-        vm.$Notice.info({
-          title: 'iview-admin更新啦',
-          desc: '<p>iView-admin更新到了' + version + '了，去看看有哪些变化吧</p><a style="font-size:13px" href="https://github.com/iview/iview-admin/releases" target="_blank">前往github查看</a>'
+  checkUpdate(vm) {
+    axios
+      .get('https://api.github.com/repos/iview/iview-admin/releases/latest')
+      .then(res => {
+        let version = res.data.tag_name
+        vm.$Notice.config({
+          duration: 0
         })
-      }
-    })
+        if (semver.lt(packjson.version, version)) {
+          vm.$Notice.info({
+            title: 'iview-admin更新啦',
+            desc:
+              '<p>iView-admin更新到了' +
+              version +
+              '了，去看看有哪些变化吧</p><a style="font-size:13px" href="https://github.com/iview/iview-admin/releases" target="_blank">前往github查看</a>'
+          })
+        }
+      })
   }
 
   // onWheel (ele, callback) {
@@ -257,5 +289,4 @@ export default {
   // offWheel (ele, callback) {
   //     ele.removeEventListener('mousewheel', callback)
   // }
-
 }

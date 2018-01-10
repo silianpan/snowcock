@@ -10,7 +10,8 @@ axios.defaults.withCredentials = true
 axios.defaults.timeout = 3600000
 // axios.defaults.headers.common['Authorization'] = 'token'
 // axios.defaults.headers.post['Content-Type']  = "application/json"
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.headers.post['Content-Type'] =
+  'application/x-www-form-urlencoded'
 // var csrftoken = window.document.cookie.get('csrftoken')
 // axios.defaults.headers.common['HTTP_X_CSRFTOKEN'] = csrftoken
 
@@ -25,7 +26,8 @@ axios.interceptors.request.use(
   },
   err => {
     return Promise.reject(err)
-  })
+  }
+)
 
 // http response 拦截器
 axios.interceptors.response.use(
@@ -39,10 +41,11 @@ axios.interceptors.response.use(
       console.log(error.response)
       switch (error.response.status) {
         case 401:
-          // 返回 401 清除token信息并跳转到登录页面
+        // 返回 401 清除token信息并跳转到登录页面
       }
     }
     return Promise.reject(error.response) // 返回接口返回的错误信息
-  })
+  }
+)
 
 export default axios
