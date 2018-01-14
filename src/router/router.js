@@ -13,7 +13,7 @@ export const loginRouter = {
 }
 
 export const page404 = {
-  path: '/*',
+  path: '/404',
   name: 'error-404',
   meta: {
     title: '404-页面不存在'
@@ -61,6 +61,10 @@ export const appRouter = [
     component: resolve => {
       require(['@/views/layout/Home.vue'], resolve)
     }
+  },
+  {
+    path: '/*',
+    redirect: '/login'
   }
 ]
 
