@@ -1,7 +1,7 @@
 <template>
     <div class="layout">
         <Layout>
-            <Sider breakpoint="md" collapsible :collapsed-width="60" v-model="isCollapsed" @on-collapse="collapseClick">
+            <Sider style="overflow: auto;" breakpoint="md" collapsible :collapsed-width="60" v-model="isCollapsed" @on-collapse="collapseClick">
                 <div class="logo">
                     <i></i>
                     <div v-if="!isCollapsed">SNOWCOCK</div>
