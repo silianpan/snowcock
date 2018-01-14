@@ -1,0 +1,2 @@
+// menu
+export const SUCCESS_GET_MENULIST = 'SUCCESS_GET_MENULIST'

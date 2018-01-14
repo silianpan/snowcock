@@ -43,8 +43,8 @@ export default {
       // 登陆提示
       loginTip: '',
       form: {
-        userName: 'iview_admin',
-        password: ''
+        userName: 'zhang.jq',
+        password: 'zhang.jq'
       },
       rules: {
         userName: [{ required: true, message: '账号不能为空', trigger: 'blur' }],
@@ -58,7 +58,6 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           Cookies.set('user', this.form.userName)
-          Cookies.set('password', this.form.password)
           // 验证用户名和密码
           const params = {
             name: this.form.userName,
@@ -67,9 +66,11 @@ export default {
           userApi
             .userLogin(params)
             .then(response => {
-              self.$router.push({
-                name: 'home'
-              })
+              if (response.status === 200) {
+                self.$router.push({
+                  name: 'home'
+                })
+              }
             })
             .catch(err => {
               console.log('err', err)

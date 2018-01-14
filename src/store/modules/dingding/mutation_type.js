@@ -1,0 +1,2 @@
+// menu
+export const SUCCESS_GET_ACCESS_TOKEN = 'SUCCESS_GET_ACCESS_TOKEN'

@@ -1,19 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import login from './modules/login'
+import menu from './modules/menu/index'
+import home from './modules/home'
 import app from './modules/app'
-import user from './modules/user'
+// import dingding from './modules/dingding'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
+export default new Vuex.Store({
+  strict: process.env.NODE_ENV !== 'production',
   modules: {
-    app,
-    user
+    menu,
+    login,
+    home,
+    app
+    // dingding
   }
 })
-
-export default store

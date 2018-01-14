@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import store from './store'
+import store from './store'
+// iconfont
+import '@/assets/css/iconfont/iconfont.css'
 
 // iview
 import iView from 'iview'
@@ -16,7 +18,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  // store,
+  store,
   template: '<App/>',
   components: { App }
 })
