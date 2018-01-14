@@ -6,7 +6,7 @@
                     <i></i>
                     <div v-if="!isCollapsed">SNOWCOCK</div>
                 </div>
-                <Menu v-if="!isCollapsed" theme="dark" width="auto" accordion="true" :class="menuitemClasses">
+                <Menu v-if="!isCollapsed" theme="dark" width="auto" :accordion="true" :class="menuitemClasses">
                     <template v-for="rootMenu in menuList">
                         <MenuItem v-if="rootMenu.children === null" :name="rootMenu.name" :key="'menuitem'+rootMenu.id">
                         <i :class="rootMenu.micon" :key="'menuicon'+rootMenu.id"></i>

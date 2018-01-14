@@ -6,7 +6,7 @@ export const loginRouter = {
     title: 'Login - 登录'
   },
   component: resolve => {
-    require(['@/views/login/login.vue'], resolve)
+    require(['@/views/login/Login.vue'], resolve)
   }
 }
 
