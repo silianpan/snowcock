@@ -1,21 +1,19 @@
 <template>
     <div class="layout">
         <Layout>
-            <Sider breakpoint="md" collapsible :collapsed-width="78" v-model="isCollapsed">
+            <Sider breakpoint="md" collapsible :collapsed-width="60" v-model="isCollapsed" @on-collapse="collapseClick">
                 <div class="logo">
                     <i></i>
                     <div v-if="!isCollapsed">SNOWCOCK</div>
                 </div>
-                <Menu theme="dark" width="auto" :class="menuitemClasses">
+                <Menu v-if="!isCollapsed" theme="dark" width="auto" accordion="true" :class="menuitemClasses">
                     <template v-for="rootMenu in menuList">
                         <MenuItem v-if="rootMenu.children === null" :name="rootMenu.name" :key="'menuitem'+rootMenu.id">
-                            <!-- <Icon :type="rootMenu.micon"></Icon> -->
-                            <i :class="rootMenu.micon" :key="'menuicon'+rootMenu.id"></i>
-                            <span :key="'menutext'+rootMenu.id">{{rootMenu.name}}</span>
+                        <i :class="rootMenu.micon" :key="'menuicon'+rootMenu.id"></i>
+                        <span :key="'menutext'+rootMenu.id">{{rootMenu.name}}</span>
                         </MenuItem>
-                        <Submenu v-else :name="rootMenu.name" :key="rootMenu.id">
+                        <Submenu v-if="rootMenu.children !== null" :name="rootMenu.name" :key="rootMenu.id">
                             <template slot="title">
-                                <!-- <Icon :type="rootMenu.micon"></Icon> -->
                                 <i :class="rootMenu.micon"></i>
                                 {{rootMenu.name}}
                             </template>
@@ -23,6 +21,34 @@
                         </Submenu>
                     </template>
                 </Menu>
+                <template v-if="isCollapsed" v-for="(rootMenu, index) in menuList">
+                    <div style="text-align: center;" :key="index">
+                        <Dropdown transfer v-if="rootMenu.children !== null" placement="right-start" :key="index">
+                            <Button style="width: 65px;margin-left: -5px;padding:10px 0;" type="text">
+                                <i :class="rootMenu.micon + ' expend-icon'"></i>
+                            </Button>
+                            <DropdownMenu style="width: 200px;" slot="list">
+                                <template v-for="(menuItem, i) in rootMenu.children">
+                                    <DropdownItem :name="menuItem.name" :key="i">
+                                        <i :class="menuItem.micon + ' expend-icon'"></i>
+                                        <span style="padding-left:10px;">{{ menuItem.name }}</span>
+                                    </DropdownItem>
+                                </template>
+                            </DropdownMenu>
+                        </Dropdown>
+                        <Dropdown transfer v-else placement="right-start" :key="index">
+                            <Button style="width: 65px;margin-left: -5px;padding:10px 0;" type="text">
+                                <i :class="rootMenu.micon + ' expend-icon'"></i>
+                            </Button>
+                            <DropdownMenu style="width: 200px;" slot="list">
+                                <DropdownItem :name="rootMenu.name" :key="'d' + index">
+                                    <i :class="rootMenu.micon + ' expend-icon'"></i>
+                                    <span style="padding-left:10px;">{{ rootMenu.name }}</span>
+                                </DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                    </div>
+                </template>
             </Sider>
             <Layout>
                 <Header class="layout-header-bar"></Header>
@@ -47,6 +73,7 @@ export default {
     this.getMenuList()
   },
   methods: {
+    // 获取菜单列表
     getMenuList() {
       const self = this
       menuApi
@@ -60,6 +87,10 @@ export default {
         .catch(err => {
           console.log('err', err)
         })
+    },
+    // 收起展开回调
+    collapseClick(isExpend) {
+      this.isCollapsed = isExpend
     }
   },
   computed: {
