@@ -13,9 +13,9 @@ module.exports = {
     staticPath:'/static/',
     proxyTable: {
       '/pms-service': {
-        // target: 'http://219.222.189.128:8080',
+        target: 'http://219.222.189.128:8080',
         // target: 'http://219.222.189.183:8080',
-        target: 'http://127.0.0.1:8080',
+        // target: 'http://127.0.0.1:8080',
         changeOrigin: true,
         // pathRewrite: {
         //     '^/ajax': '/pms-service'

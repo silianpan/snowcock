@@ -1,4 +1,4 @@
-import axios from 'api/tools/http'
+import axios from '@/api/tools/http'
 import { API_BASEURL, API_TIMEOUT } from '@/config'
 
 export default {
@@ -84,7 +84,7 @@ export default {
    *@param url 用户输入的url
    *@returns axios
    */
-  save(url, params = {}, tag = true) {
+  post(url, params = {}, tag = true) {
     var options = this.axiosOptions(url, 'post', params, tag)
     return axios(options)
   },
