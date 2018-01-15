@@ -1,7 +1,7 @@
 <template>
     <div class="layout">
         <Layout>
-            <Sider style="overflow: auto;" breakpoint="md" collapsible :collapsed-width="60" v-model="isCollapsed" @on-collapse="collapseClick">
+            <Sider breakpoint="md" collapsible :collapsed-width="60" v-model="isCollapsed" @on-collapse="collapseClick">
                 <div class="logo">
                     <i></i>
                     <div v-if="!isCollapsed">SNOWCOCK</div>
@@ -55,6 +55,7 @@
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '220px'}">
                     Content
                 </Content>
+                <Footer>四川卓信力加信息科技有限责任公司 Copyright  2017 版权所有</Footer>
             </Layout>
         </Layout>
     </div>
