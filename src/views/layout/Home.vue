@@ -55,7 +55,7 @@
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '220px'}">
                     Content
                 </Content>
-                <Footer>四川卓信力加信息科技有限责任公司 Copyright  2017 版权所有</Footer>
+                <Footer>四川卓信力加信息科技有限责任公司 Copyright 2017 版权所有</Footer>
             </Layout>
         </Layout>
     </div>
