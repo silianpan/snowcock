@@ -68,7 +68,7 @@ export default {
             .then(response => {
               if (response.status === 200) {
                 self.$router.push({
-                  name: 'home'
+                  path: '/home'
                 })
               }
             })

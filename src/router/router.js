@@ -47,10 +47,16 @@ export const page500 = {
 export const appRouter = [
   {
     path: '/home',
-    name: 'home',
     component: resolve => {
       require(['@/views/layout/Home.vue'], resolve)
-    }
+    },
+    children: [{
+      path: '',
+      name: 'display',
+      component: resolve => {
+        require(['@/views/display/Home.vue'], resolve)
+      }
+    }]
   },
   {
     path: '/*',

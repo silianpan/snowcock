@@ -53,7 +53,9 @@
             <Layout>
                 <Header class="layout-header-bar"></Header>
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '220px'}">
-                    Content
+                    <transition name="slide-fade" mode="out-in">
+                        <router-view/>
+                    </transition>
                 </Content>
                 <Footer>四川卓信力加信息科技有限责任公司 Copyright 2017 版权所有</Footer>
             </Layout>
