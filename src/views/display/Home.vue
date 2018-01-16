@@ -43,7 +43,7 @@ import VueGridLayout from 'vue-grid-layout'
 import TodoSimple from '@/views/todo/Simple.vue'
 import ProjectStatus from './ProjectStatus.vue'
 import ProjectProcessStatus from './ProjectProcessStatus.vue'
-import ProjectType from './ProjectTypeHistogram.vue'
+import ProjectType from './ProjectType.vue'
 
 const GridLayout = VueGridLayout.GridLayout
 const GridItem = VueGridLayout.GridItem
@@ -61,10 +61,10 @@ export default {
   data() {
     return {
       layout: [
-        { x: 0, y: 1, w: 6, h: 7, i: '1', component: TodoSimple },
-        { x: 0, y: 7, w: 6, h: 10, i: '2', component: ProjectStatus },
-        { x: 6, y: 0, w: 6, h: 7, i: '3', component: ProjectProcessStatus },
-        { x: 6, y: 7, w: 6, h: 10, i: '4', component: ProjectType }
+        { x: 0, y: 1, w: 6, h: 9, i: '1', component: TodoSimple },
+        { x: 0, y: 7, w: 6, h: 9, i: '2', component: ProjectStatus },
+        { x: 6, y: 0, w: 6, h: 9, i: '3', component: ProjectProcessStatus },
+        { x: 6, y: 7, w: 6, h: 9, i: '4', component: ProjectType }
       ],
       draggable: false,
       resizable: false,

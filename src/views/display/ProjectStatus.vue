@@ -1,17 +1,14 @@
 <template>
-<ve-pie ref="vchart" 
-    :height="height"
-    :data="chartData" 
-    :settings="chartSettings" 
-    :title="title" 
-    legend-position="left"></ve-pie>
+    <div style="width:100%;height:100%;" id="domid_project_status"></div>
 </template>
 
 <script>
-import VePie from 'v-charts/lib/pie'
+import echarts from 'echarts'
 import resType from '@/common/resTypeEnum'
 import projectApi from '@/api/project'
+
 export default {
+  name: 'projectStatus',
   props: {
     realWidth: {
       type: String,
@@ -20,39 +17,56 @@ export default {
   },
   data() {
     return {
-      chartData: {
-        columns: ['name', 'value'],
-        rows: []
-      },
-      chartSettings: {
-        // roseType: 'radius'
-        radius: 80,
-        offsetY: 140
-      },
-      title: {
-        text: '项目状态',
-        left: 'center'
-      },
-      height: '400px'
+      dataSource: null,
+      option: {
+        title: {
+          text: '项目状态',
+          x: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+          data: []
+        },
+        series: [
+          {
+            name: '访问来源',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [],
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      }
     }
   },
-  components: {
-    VePie
-  },
-  created() {
-    this.statisticProjectStatus()
-  },
   mounted() {
-    this.windowResizeEventListen()
+    const self = this
+    this.$nextTick(() => {
+      self.dataSource = echarts.init(
+        document.getElementById('domid_project_status')
+      )
+      self.statisticProjectStatus()
+    })
   },
   methods: {
-    windowResizeEventListen() {
+    resize() {
+      // 自适应设计
       const self = this
-      window.onresize = function() {
-        if (self.$refs.vchart && self.$refs.vchart.echarts) {
-          self.$refs.vchart.echarts.resize()
-        }
-      }
+      window.addEventListener('resize', function() {
+        self.dataSource.resize()
+      })
     },
     statisticProjectStatus() {
       const self = this
@@ -60,17 +74,20 @@ export default {
         .statisticProjectStatus()
         .then(response => {
           const itemArr = response.data
+          let itemNameArr = []
           for (let i = 0; i < itemArr.length; i++) {
             const item = itemArr[i]
-            item.name = resType.getProjectStatusById(item.name)
+            item.name = resType.getProjectProcessStatusById(item.name)
+            itemNameArr.push(item.name)
           }
-          self.chartData.rows = itemArr
+          self.option.legend.data = itemNameArr
+          self.option.series[0].data = itemArr
 
-          // 自适应大小
-          if (self.$refs.vchart && self.$refs.vchart.echarts) {
-            self.$refs.vchart.echarts.resize()
-          }
-          self.windowResizeEventListen()
+          // 设置数据源
+          self.dataSource.setOption(self.option)
+          // 自适应设计
+          self.dataSource.resize()
+          self.resize()
         })
         .catch(err => {
           console.log('err', err)
@@ -80,7 +97,9 @@ export default {
   watch: {
     realWidth: function(newVal, oldVal) {
       // 自适应大小
-      this.$refs.vchart.echarts.resize()
+      if (this.dataSource) {
+        this.dataSource.resize()
+      }
     }
   }
 }
