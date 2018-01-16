@@ -2,7 +2,7 @@
   <Card>
     <p slot="title">
         <Icon type="checkmark"></Icon>
-        待办任务
+        <span style="font-size:1.2em">待办任务</span>
     </p>
     <a href="#" slot="extra" @click.prevent="moreClickAction">
       more>>
