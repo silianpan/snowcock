@@ -1,12 +1,12 @@
 <template>
 <div>
-    <!-- <el-row type="flex">
-        <el-col :span="24" style="text-align:right">
-            <el-button type="text" size="mini" @click="editDashBord">编辑</el-button>
-            <el-button v-if="draggable && resizable" type="text" size="mini" @click="addItemToDashBord">新增</el-button>
-            <el-button v-if="draggable && resizable" type="text" size="mini" @click="finishEditDashBord">保存</el-button>
-        </el-col>
-    </el-row> -->
+    <Row type="flex" justify="end">
+      <Col :xs="24" :sm="24" :md="24" :lg="24" style="text-align:right">
+        <Button type="text" @click="editDashBord">编辑</Button>
+        <Button v-if="draggable && resizable" type="text" @click="addItemToDashBord">新增</Button>
+        <Button v-if="draggable && resizable" type="text" @click="finishEditDashBord">保存</Button>
+      </Col>
+    </Row>
     <grid-layout
             :layout="layout"
             :col-num="12"
@@ -45,8 +45,6 @@ import ProjectStatus from './ProjectStatus.vue'
 import ProjectProcessStatus from './ProjectProcessStatus.vue'
 import ProjectType from './ProjectTypeHistogram.vue'
 
-// import GridItem from '@/components/GridLayout/GridItem.vue'
-// import GridLayout from '@/components/GridLayout/GridLayout.vue'
 const GridLayout = VueGridLayout.GridLayout
 const GridItem = VueGridLayout.GridItem
 
@@ -162,22 +160,6 @@ export default {
   }
 }
 </script>
-<style>
-/* .vue-grid-item > .vue-resizable-handle {
-        position: absolute!important;
-        width: 20px!important;
-        height: 20px!important;
-        bottom: 0!important;
-        right: 0!important;
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QkYCzU64RmLYwAAAB9JREFUCNdjZEAD/////8/AwMDAxIADkC7BCDOTaB0AzToIAyjCdiUAAAAASUVORK5CYII=)!important;
-        background-position: bottom right!important;
-        padding: 0 3px 3px 0!important;
-        background-repeat: no-repeat!important;
-        background-origin: content-box!important;
-        box-sizing: border-box!important;
-        cursor: se-resize!important;
-    } */
-</style>
 
 <style lang="less">
 @import './home.less';
